@@ -1,0 +1,269 @@
+// SASS INCLUDES
+// #############################################
+@import "imports/normalize";
+@import "imports/helpers";
+@import "imports/variables";
+
+body
+{
+	font:normal 100%/#{$base-lineheight} $fontstack1;
+	background:#ccc;
+	margin:0;
+	padding:0;
+}
+
+h1,h2,h3,h4
+{
+	font:normal 100%/#{$title-lineheight} $fontstack2;
+}
+
+h1
+{
+	font-size:200%;
+}
+
+h2
+{
+	font-size:150%;
+}
+
+h3
+{
+	font-size:125%;
+}
+
+h4
+{
+	font-size:115%;
+}
+
+.intro
+{
+	font-size:115%;
+	color:#777;
+}
+
+/*
+ * - Limits the page width
+ * - Hides overflowing content
+**/
+.wrapper
+{
+	margin:0 auto;
+	padding:0;
+	min-width:320px;
+	max-width:1140px;
+	background:#fff;
+	overflow:hidden;
+}
+
+/*
+ * - .page is what is getting animated
+ * - below large screens and if JS is supported it become position:relative; and
+ *   creates a positioning context for .main_nav
+ * - if .page is not taller than nav, we need a way to make it so.
+ *   otherwise, .nav-main will be cut off. We use min-height:100vh or
+ *   min-height:500px as a fallback for browsers not supporting vh units.
+**/
+.page
+{
+	padding:2em;
+	min-height:500px;
+	min-height:100vh;
+
+	@include mq("below large")
+	{
+		.js &
+		{
+			position:relative;
+			transition:all 250ms 150ms linear;
+		}
+
+		.js-nav-hidden &
+		{
+			transform:translateX(0);
+			transform:translate3d(0, 0, 0);
+		}
+
+		.js-nav-visible &
+		{
+			transform:translateX(60%);
+			transform:translate3d(60%, 0, 0);
+		}
+	}
+}
+
+/*
+ * - if JS is on and MQ supported .nav-main is positioned absolutely with .page
+ *   as positioning context
+**/
+.nav-main
+{
+	background:#222;
+
+	@include mq("below large")
+	{
+		.js &
+		{
+			position:absolute;
+			top:0;
+			left:-60%; /* same as width of nav */
+			width:60%;
+			height:100%;
+		}
+	}
+}
+
+/*
+ * - the nav-toggle element is created using JS
+ * - These are just the styles for it
+**/
+.nav-toggle
+{
+	a
+	{
+		display:none;
+
+		@include mq("below large")
+		{
+			display:block;
+			width:34px;
+			height:28px;
+			background:url(../img/sprite_global.svg) 0 -400px no-repeat;
+
+			//hide content
+			text-indent:-999px;
+			overflow:hidden;
+
+			.no-svg &
+			{
+				background:url(../img/sprite_global.png) 0 -400px no-repeat;
+			}
+		}
+	}
+}
+
+/*
+ * - default stacked nav items for small screens
+ * - Get fancy when Media Queries and JS are supported
+ * 	- Medium sized screens get a big icons navigation
+ *		- Big screens go back to a normal navbar at the top of the page
+**/
+.nav-main-menu
+{
+	background:#222;
+	padding:1em;
+
+	.js &
+	{
+		padding:2em;
+	}
+
+	//default stacked nav for small screens
+	a
+	{
+		display:block;
+		padding:.5em;
+		color:#7A7C79;
+		text-decoration:none;
+		text-transform:uppercase;
+
+		&.current, &:hover
+		{
+			color:#fff;
+		}
+
+		&.current
+		{
+			background:#000;
+		}
+	}
+
+	//medium sizes
+	@include mq("medium")
+	{
+		.js &
+		{
+			li
+			{
+				float:left;
+				width:50%;
+			}
+
+			a
+			{
+				text-align:center;
+				padding:1em 2em 2em;
+				display:block;
+				border:none;
+
+				&:before
+				{
+					content:"";
+					display:block;
+					margin:1em auto;
+					width:80px;
+					height:80px;
+					opacity:.7;
+					background-image:url(../img/sprite_global.svg);
+					background-repeat:no-repeat;
+				}
+
+				&:hover:before
+				{
+					opacity:.9;
+				}
+			}
+
+			.nav-home a:before
+			{
+				background-position:-200px -200px;
+			}
+			.nav-about a:before
+			{
+				background-position:0 -200px;
+			}
+			.nav-work a:before
+			{
+				background-position:-200px 0;
+			}
+			.nav-contact a:before
+			{
+				background-position:0 0;
+			}
+		}
+
+		//PNG alternative if browser does not support SVG
+		.js.no-svg & a:before
+		{
+			background-image:url(../img/sprite_global.png);
+		}
+	}
+
+	//horizontal nav for large screens
+	@include mq("large")
+	{
+		.js &
+		{
+			padding:0;
+
+			li, a
+			{
+				float:left;
+				width:auto;
+			}
+
+			a
+			{
+				text-align:left;
+				padding:.8em 1.25em;
+
+				&:before
+				{
+					content:none;
+					display:none;
+				}
+			}
+		}
+	}
+}
