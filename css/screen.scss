@@ -68,14 +68,14 @@ h4
 .page
 {
 	padding:2em;
-	min-height:500px;
-	min-height:100vh;
 
 	@include mq("below large")
 	{
 		.js &
 		{
 			position:relative;
+			min-height:500px;
+			min-height:100vh;
 			transition:all 250ms 150ms linear;
 		}
 
