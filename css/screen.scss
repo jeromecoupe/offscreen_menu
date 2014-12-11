@@ -75,7 +75,7 @@ h4
 		{
 			position:relative;
 			min-height:500px;
-			min-height:100vh;
+			min-height:calc(100vh - 4em);
 			transition:all 250ms 150ms linear;
 		}
 
