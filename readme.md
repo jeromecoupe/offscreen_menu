@@ -14,7 +14,7 @@ Browsers have to support both JavaScript and media queries to get the full exper
 
 The offscreen menu works by having a `.page <div>` that serves as positioning context for the navigation menu that is positioned absolutely offscreen. When the nav is active, the left position of the `.page <div>` is updated to make the menu visible or hidden. a `.wrapper <div>` defines the width of the site and ensure that everything off limits stays invisible by using `overflow:hidden`.
 
-`min-height` is used on the content to make sure it is at least the height of the menu to prevent the menu from beeing cut off by the `overflow:hidden;`. Using `vh` units with a pixel fallback for the browsers not supporting these units.
+`min-height` is used on the content to make sure it is at least the height of the menu to prevent the menu from being cut off by the `overflow:hidden;`. Using `vh` units with a pixel fallback for the browsers not supporting these units.
 
 ## Technologies
 
